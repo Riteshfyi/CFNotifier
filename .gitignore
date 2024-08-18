@@ -1,6 +1,7 @@
 
 
 notifier_api\*.env
+notifier_api\.env
 notifier_api\node_modules
 notifier_ui\src\config.js
 
