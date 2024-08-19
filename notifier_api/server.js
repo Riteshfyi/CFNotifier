@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 
-mongoose.connect("mongodb://localhost/codeforces-notifier", {
+mongoose.connect(PORT, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
