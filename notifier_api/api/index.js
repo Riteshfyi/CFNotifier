@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://slicespot.vercel.app",
+  origin: "*",
   credentials: true,
 };
 
