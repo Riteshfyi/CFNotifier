@@ -2,20 +2,25 @@ const express = require("express");
 const axios = require("axios");
 const mongoose = require("mongoose");
 const cron = require("node-cron");
+const cors = require("cors");
 const sendEmail = require("../emailService");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
 app.use(express.json());
 
+const corsOptions = {
+  origin: "https://slicespot.vercel.app",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 
 const UserSchema = new mongoose.Schema({
   handle: String,
@@ -25,9 +30,8 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-
 app.post("/check-rating", async (req, res) => {
-  const { handle, email } = req.body; 
+  const { handle, email } = req.body;
   try {
     const response = await axios.get(
       `https://codeforces.com/api/user.rating?handle=${handle}`
@@ -52,7 +56,6 @@ app.post("/check-rating", async (req, res) => {
       const newUser = new User({ handle, lastRating: latestRating, email });
       await newUser.save();
 
-    
       await sendEmail(
         email,
         "Rating Update",
@@ -70,9 +73,7 @@ app.post("/check-rating", async (req, res) => {
   }
 });
 
-
 cron.schedule("0 * * * *", async () => {
-
   console.log("Running Cron Job: Checking Codeforces ratings");
 
   const users = await User.find({});
@@ -89,7 +90,6 @@ cron.schedule("0 * * * *", async () => {
         user.lastRating = latestRating;
         await user.save();
 
-     
         await sendEmail(
           user.email,
           "Codeforces Rating Update",
