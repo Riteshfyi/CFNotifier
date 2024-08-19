@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const mongoose = require("mongoose");
 const cron = require("node-cron");
-const sendEmail = require("./emailService");
+const sendEmail = require("../emailService");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
