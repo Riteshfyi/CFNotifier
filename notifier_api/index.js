@@ -16,7 +16,7 @@ app.listen(PORT, () => {
 
 
 const corsOptions = {
-  origin: "https://cfnotifier.vercel.app",
+  origin: "*",
   credentials: true,
 };
 
