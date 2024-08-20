@@ -10,6 +10,11 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+
 const corsOptions = {
   origin: "https://cfnotifier.vercel.app",
   credentials: true,
@@ -102,6 +107,3 @@ cron.schedule("0 * * * *", async () => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
