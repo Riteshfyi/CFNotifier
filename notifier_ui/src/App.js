@@ -17,7 +17,7 @@ function App() {
     setError(""); 
 
     try {
-      const response = await axios.post("http://192.168.0.243:5000/check-rating", { handle, email });
+      const response = await axios.post("https://cfnotifierapi.vercel.app/check-rating", { handle, email });
       setMessage(response.data.message);
     } catch (error) {
       setMessage("Error registering handle");
