@@ -8,7 +8,7 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
@@ -16,11 +16,13 @@ app.listen(PORT, () => {
 
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://cfnotifier.vercel.app",
   credentials: true,
 };
 
 app.use(cors(corsOptions));
+
+app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
